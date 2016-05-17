@@ -27,7 +27,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     // ТОВАР
     private static final String TABLE_PRODUCT = "product";          // Имя таблицы
-    private static final String PRODUCT_ID = "prouct_id";           // ID Записи
+    private static final String PRODUCT_ID = "product_id";           // ID Записи
     private static final String PRODUCT_NAME = "product_name";      // Стоблбец с названием товара
 
     // Продавец
@@ -68,8 +68,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     // Информация о компании. Из других таблиц: ID поставщика, ID продавца
     private static final String TABLE_COMPANY = "company";                    // Имя таблицы
-    private static final String COMPANY_ID = "compaby_id";                    // ID компании
-    private static final String COMPANY_ADDRESS = "company_addres";           // Адрес компании
+    private static final String COMPANY_ID = "company_id";                    // ID компании
+    private static final String COMPANY_ADDRESS = "company_address";           // Адрес компании
 
     // Таблица сформированного заказа готового к отправлению
     private static final String TABLE_SEND = "send";                          // Имя таблицы
@@ -104,18 +104,22 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     // Таблица корзин
     private static final String CREATE_TABLE_BASKET = "create table " + TABLE_BASKET
             + " (" + BASKET_ID + " integer primary key autoincrement, "
-            + BUYER_ID + " integer not null foreign key references " + TABLE_BUYER + "(" + BUYER_ID + "), "
-            + PRODUCT_ID + " integer not null foreign key references " + TABLE_PRODUCT + "(" + PRODUCT_ID + "), "
-            + COUNT_PRODUCT + " integer not null);";
+            + COUNT_PRODUCT + " integer not null, "
+            + BUYER_ID + " integer not null, "
+            + PRODUCT_ID + " integer not null, "
+            + "foreign key("+ PRODUCT_ID + ") references " + TABLE_PRODUCT + "(" + PRODUCT_ID + "), "
+            + "foreign key("+ BUYER_ID + ") references " + TABLE_BUYER + "(" + BUYER_ID + "));";
 
     // Таблица учета продаж
     private static  final String CREATE_TABLE_ACCOUNTING_SALES = "create table " + TABLE_ACCOUNTING_SALES
             + " (" + ACCOUNTING_SALES_ID + " integer primary key autoincrement, "
-            + PRODUCT_ID + " integer not null foreign key references " + TABLE_PRODUCT + "(" + PRODUCT_ID + "), "
             + SALES_COUNT + " integer not null, "
             + SALES_SUM + " real not null, "
             + SALES_DATE + " text not null, "
-            + SELLER_ID + " integer not null foreign primary key references " + TABLE_SELLER + "(" + SELLER_ID + "));";
+            + PRODUCT_ID + " integer not null, "
+            + SELLER_ID + " integer not null, "
+            + "foreign key(" + PRODUCT_ID + ") references " + TABLE_PRODUCT + "(" + PRODUCT_ID + "), "
+            + "foreign key(" + SELLER_ID + ") references " + TABLE_SELLER + "(" + SELLER_ID + "));";
 
     // Таблица поставщиков
     private static final String CREATE_TABLE_PROVIDER = "create table " + TABLE_PROVIDER
@@ -124,20 +128,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     // Таблица поставок
     private static final String CREATE_TABLE_DELIVERY = "create table " + TABLE_DELIVERY
-            + "(" + DELIVERY_ID + "integer primary key autoincrement, "
+            + "(" + DELIVERY_ID + " integer primary key autoincrement, "
             + DELIVERY_DATE + "text not null, "
-            + PRODUCT_ID + " integer not null foreign key references " + TABLE_PRODUCT + "(" + PRODUCT_ID + "), "
             + DELIVERY_COUNT_PRODUCT + " integer not null, "
-            + PROVIDER_ID + " integer not null foreign key references " + TABLE_PROVIDER + "(" + PROVIDER_ID + "));";
+            + PRODUCT_ID + " integer not null, "
+            + PROVIDER_ID + " integer not null, "
+            + "foreign key(" + PRODUCT_ID + ") references " + TABLE_PRODUCT + "(" + PRODUCT_ID + "), "
+            + "foreign key(" + PROVIDER_ID + ") references " + TABLE_PROVIDER + "(" + PROVIDER_ID + "));";
 
     private static final String CREATE_TABLE_SEND = "create table " + TABLE_SEND
             + "(" + SEND_ID + " integer primary key autoincrement, "
-            + BASKET_ID + " integer not null foreign key references " + TABLE_BASKET + "(" + BASKET_ID + "), "
             + SEND_ADDRESS + " text not null, "
             + SEND_INDEX + " integer not null, "
             + SEND_DELIVERED + " integer not null, "
             + SEND_GET + " integer not null, "
-            + SEND_FREE + " integer not null);";
+            + SEND_FREE + " integer not null, "
+            + BASKET_ID + " integer not null, "
+            + "foreign key(" + BASKET_ID +") references " + TABLE_BASKET + "(" + BASKET_ID + "));";
 
     private static final String CREATE_TABLE_COMPANY = "create table " + TABLE_COMPANY
             + "(" + COMPANY_ID + " integer primary key autoincrement, "
