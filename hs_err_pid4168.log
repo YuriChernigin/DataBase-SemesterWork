@@ -1,0 +1,117 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 275056 bytes for Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:323), pid=4168, tid=18816
+#
+# JRE version: Java(TM) SE Runtime Environment (7.0_79-b15) (build 1.7.0_79-b15)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.79-b02 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002426000):  JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=18816, stack(0x000000000b2f0000,0x000000000b3f0000)]
+
+Stack: [0x000000000b2f0000,0x000000000b3f0000]
+
+Current CompileTask:
+C2:  29139  951             com.android.ide.common.res2.NodeUtils::updateNamespace (161 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x000000000ee1f800 JavaThread "stdout" daemon [_thread_in_native, id=20248, stack(0x0000000012250000,0x0000000012350000)]
+  0x000000000ee25800 JavaThread "stderr" daemon [_thread_in_native, id=22148, stack(0x0000000012150000,0x0000000012250000)]
+  0x000000000ee24800 JavaThread "png-cruncher_20" daemon [_thread_blocked, id=11664, stack(0x0000000012050000,0x0000000012150000)]
+  0x000000000ee24000 JavaThread "png-cruncher_19" daemon [_thread_blocked, id=21256, stack(0x0000000011f50000,0x0000000012050000)]
+  0x000000000ee1e000 JavaThread "png-cruncher_18" daemon [_thread_blocked, id=13884, stack(0x0000000011e50000,0x0000000011f50000)]
+  0x000000000dc76000 JavaThread "png-cruncher_17" daemon [_thread_blocked, id=22252, stack(0x0000000011d50000,0x0000000011e50000)]
+  0x000000000dc78000 JavaThread "png-cruncher_16" daemon [_thread_blocked, id=7884, stack(0x0000000011c50000,0x0000000011d50000)]
+  0x000000000dc77800 JavaThread "stdout" daemon [_thread_in_native, id=15968, stack(0x0000000011b50000,0x0000000011c50000)]
+  0x000000000dc75000 JavaThread "stderr" daemon [_thread_in_native, id=15620, stack(0x0000000011a50000,0x0000000011b50000)]
+  0x000000000dc76800 JavaThread "png-cruncher_14" daemon [_thread_blocked, id=9636, stack(0x0000000011850000,0x0000000011950000)]
+  0x000000000dc73800 JavaThread "png-cruncher_13" daemon [_thread_blocked, id=22496, stack(0x0000000011750000,0x0000000011850000)]
+  0x000000000dc73000 JavaThread "png-cruncher_12" daemon [_thread_blocked, id=18516, stack(0x0000000011650000,0x0000000011750000)]
+  0x000000000dc6d800 JavaThread "png-cruncher_10" daemon [_thread_blocked, id=1780, stack(0x0000000011450000,0x0000000011550000)]
+  0x000000000dc6d000 JavaThread "png-cruncher_9" daemon [_thread_blocked, id=22372, stack(0x0000000011350000,0x0000000011450000)]
+  0x000000000dc72000 JavaThread "png-cruncher_8" daemon [_thread_blocked, id=14644, stack(0x0000000011250000,0x0000000011350000)]
+  0x000000000dc71800 JavaThread "png-cruncher_7" daemon [_thread_blocked, id=16092, stack(0x0000000011150000,0x0000000011250000)]
+  0x000000000dc6c000 JavaThread "png-cruncher_6" daemon [_thread_blocked, id=12948, stack(0x0000000011050000,0x0000000011150000)]
+  0x000000000dc6a000 JavaThread "stdout" daemon [_thread_in_native, id=14680, stack(0x0000000010f50000,0x0000000011050000)]
+  0x000000000dc70800 JavaThread "stderr" daemon [_thread_in_native, id=5916, stack(0x0000000010e50000,0x0000000010f50000)]
+  0x000000000dc69000 JavaThread "stdout" daemon [_thread_in_native, id=17344, stack(0x0000000010d50000,0x0000000010e50000)]
+  0x000000000dc6e800 JavaThread "stderr" daemon [_thread_in_native, id=16792, stack(0x0000000010c50000,0x0000000010d50000)]
+  0x000000000dc6f000 JavaThread "stdout" daemon [_thread_in_native, id=21096, stack(0x0000000010b50000,0x0000000010c50000)]
+  0x000000000dc6a800 JavaThread "stderr" daemon [_thread_in_native, id=10396, stack(0x0000000010a50000,0x0000000010b50000)]
+  0x000000000dc70000 JavaThread "stdout" daemon [_thread_in_native, id=18276, stack(0x0000000010950000,0x0000000010a50000)]
+  0x000000000ce40000 JavaThread "stderr" daemon [_thread_in_native, id=16048, stack(0x0000000010850000,0x0000000010950000)]
+  0x000000000ce3f800 JavaThread "pool-1-thread-8" [_thread_blocked, id=19676, stack(0x0000000010750000,0x0000000010850000)]
+  0x000000000ce42800 JavaThread "pool-1-thread-7" [_thread_blocked, id=14316, stack(0x0000000010650000,0x0000000010750000)]
+  0x000000000ce41000 JavaThread "pool-1-thread-6" [_thread_blocked, id=18036, stack(0x0000000010550000,0x0000000010650000)]
+  0x000000000ce3e800 JavaThread "pool-1-thread-5" [_thread_blocked, id=20600, stack(0x0000000010450000,0x0000000010550000)]
+  0x000000000ce3e000 JavaThread "pool-1-thread-4" [_thread_blocked, id=16564, stack(0x0000000010350000,0x0000000010450000)]
+  0x000000000ce44800 JavaThread "png-cruncher_5" daemon [_thread_blocked, id=15536, stack(0x0000000010250000,0x0000000010350000)]
+  0x000000000ce44000 JavaThread "png-cruncher_4" daemon [_thread_blocked, id=14216, stack(0x0000000010150000,0x0000000010250000)]
+  0x000000000ce43000 JavaThread "png-cruncher_3" daemon [_thread_blocked, id=7656, stack(0x0000000010050000,0x0000000010150000)]
+  0x000000000ce41800 JavaThread "png-cruncher_2" daemon [_thread_blocked, id=12272, stack(0x000000000ff50000,0x0000000010050000)]
+  0x000000000e0e9800 JavaThread "png-cruncher_1" daemon [_thread_blocked, id=7896, stack(0x000000000fe50000,0x000000000ff50000)]
+  0x000000000dd72000 JavaThread "pool-1-thread-3" [_thread_blocked, id=12828, stack(0x000000000fc50000,0x000000000fd50000)]
+  0x000000000c967800 JavaThread "pool-1-thread-2" [_thread_blocked, id=11480, stack(0x000000000fb50000,0x000000000fc50000)]
+  0x000000000ceb4800 JavaThread "pool-1-thread-1" [_thread_blocked, id=14364, stack(0x000000000fa50000,0x000000000fb50000)]
+  0x000000000bb2b800 JavaThread "File lock request listener" [_thread_in_native, id=11048, stack(0x000000000d9b0000,0x000000000dab0000)]
+  0x000000000c23c800 JavaThread "Stdin handler" [_thread_blocked, id=17368, stack(0x000000000d8b0000,0x000000000d9b0000)]
+  0x000000000be5a000 JavaThread "Daemon worker" [_thread_in_native, id=15580, stack(0x000000000d7b0000,0x000000000d8b0000)]
+  0x000000000be59800 JavaThread "Cancel handler" [_thread_blocked, id=11632, stack(0x000000000d6b0000,0x000000000d7b0000)]
+  0x000000000be5d800 JavaThread "Handler for socket connection from /127.0.0.1:53220 to /127.0.0.1:53222" [_thread_in_native, id=5012, stack(0x000000000d5b0000,0x000000000d6b0000)]
+  0x000000000bda5800 JavaThread "Daemon" [_thread_blocked, id=14852, stack(0x000000000d4b0000,0x000000000d5b0000)]
+  0x000000000bc0e000 JavaThread "Incoming local TCP Connector on port 53220" [_thread_in_native, id=17016, stack(0x000000000bef0000,0x000000000bff0000)]
+  0x000000000242b000 JavaThread "Service Thread" daemon [_thread_blocked, id=16004, stack(0x000000000b4f0000,0x000000000b5f0000)]
+  0x0000000002428000 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=22268, stack(0x000000000b3f0000,0x000000000b4f0000)]
+=>0x0000000002426000 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=18816, stack(0x000000000b2f0000,0x000000000b3f0000)]
+  0x0000000002425000 JavaThread "Attach Listener" daemon [_thread_blocked, id=4152, stack(0x000000000b1f0000,0x000000000b2f0000)]
+  0x000000000ad11800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=17136, stack(0x000000000b0f0000,0x000000000b1f0000)]
+  0x0000000008d0f800 JavaThread "Finalizer" daemon [_thread_blocked, id=13216, stack(0x000000000abf0000,0x000000000acf0000)]
+  0x0000000008d09000 JavaThread "Reference Handler" daemon [_thread_blocked, id=2360, stack(0x000000000aaf0000,0x000000000abf0000)]
+  0x0000000002330800 JavaThread "main" [_thread_blocked, id=16996, stack(0x0000000002130000,0x0000000002230000)]
+
+Other Threads:
+  0x0000000008d05000 VMThread [stack: 0x000000000a9f0000,0x000000000aaf0000] [id=17532]
+  0x000000000ad26800 WatcherThread [stack: 0x000000000b5f0000,0x000000000b6f0000] [id=17196]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 223232K, used 105367K [0x00000000eaa80000, 0x0000000100000000, 0x0000000100000000)
+  eden space 200192K, 47% used [0x00000000eaa80000,0x00000000f0784ad0,0x00000000f6e00000)
+  from space 23040K, 43% used [0x00000000f6e00000,0x00000000f77e11c8,0x00000000f8480000)
+  to   space 21504K, 0% used [0x00000000feb00000,0x00000000feb00000,0x0000000100000000)
+ ParOldGen       total 85504K, used 51085K [0x00000000c0000000, 0x00000000c5380000, 0x00000000eaa80000)
+  object space 85504K, 59% used [0x00000000c0000000,0x00000000c31e37c8,0x00000000c5380000)
+ PSPermGen       total 42496K, used 42185K [0x00000000b0000000, 0x00000000b2980000, 0x00000000c0000000)
+  object space 42496K, 99% used [0x00000000b0000000,0x00000000b29324a8,0x00000000b2980000)
+
+Card table byte_map: [0x0000000005430000,0x00000000056c0000] byte_map_base: 0x0000000004eb0000
+
+Polling page: 0x0000000000970000
+
+Code Cache  [0x0000000002430000, 0x0000000002840000, 0x0000000005430000)
+ total_blobs=1512 nmethods=889 adapters=574 free_code_cache=45203Kb largest_free_block=46110144
+
+Compilation events (10 events):

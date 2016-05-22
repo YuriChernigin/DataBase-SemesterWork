@@ -5,4 +5,20 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Тайтлы для экшен бара -->
+    <string name="basket">Корзина</string>
+    <string name="buyer">Покупатель</string>
+    <string name="company">Информация о компании</string>
+    <string name="delivery">Поставка</string>
+    <string name="product">Товар</string>
+    <string name="provider">Поставщик</string>
+    <string name="seller">Продавец</string>
+    <string name="send">Сформированные заказы</string>
+    <string name="accounting_sales">Учет продаж</string>
+    <string name="main_title">Skateboard Shop</string>
 </resources>

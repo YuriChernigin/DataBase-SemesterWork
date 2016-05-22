@@ -26,9 +26,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     //////////////////////////////////////////////////////////////////////////////////////////
 
     // ТОВАР
-    private static final String TABLE_PRODUCT = "product";          // Имя таблицы
-    private static final String PRODUCT_ID = "product_id";           // ID Записи
-    private static final String PRODUCT_NAME = "product_name";      // Стоблбец с названием товара
+    public static final String TABLE_PRODUCT = "product";          // Имя таблицы
+    public static final String PRODUCT_ID = "product_id";           // ID Записи
+    public static final String PRODUCT_NAME = "product_name";      // Стоблбец с названием товара
 
     // Продавец
     private static final String TABLE_SELLER = "seller";            // Имя таблицы

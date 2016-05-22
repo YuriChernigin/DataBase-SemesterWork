@@ -1,9 +1,14 @@
 package com.example.bdsemester;
 
+import android.app.Fragment;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,12 +18,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.example.bdsemester.fragments.AccountingSales;
+import com.example.bdsemester.fragments.Basket;
+import com.example.bdsemester.fragments.Buyer;
+import com.example.bdsemester.fragments.Company;
+import com.example.bdsemester.fragments.Delivery;
+import com.example.bdsemester.fragments.Product;
+import com.example.bdsemester.fragments.ProviderMan;
+import com.example.bdsemester.fragments.Seller;
+import com.example.bdsemester.fragments.SendOrder;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DataBaseHelper dataBaseHelper;
     private SQLiteDatabase sqLiteDatabase;
+
+    //Фрагменты
+    private AccountingSales fragmentAccounting;  // Учет продаж
+    private Basket fragmentBasket;               // Корзина
+    private Buyer fragmentBuyer;                 // Покупатель
+    private Company fragmentCompany;             // Компания
+    private Delivery fragmentDelivery;           // Поставка
+    private Product fragmentProduct;             // Товар
+    private ProviderMan fragmentProvider;        // Поставщик
+    private Seller fragmentSeller;               // Покупатель
+    private SendOrder fragmentSend;              // Отправка заказа
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +60,22 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        dataBaseHelper = new DataBaseHelper(this, DataBaseHelper.DATABASE_NAME, null, 1);
-        sqLiteDatabase = dataBaseHelper.getReadableDatabase();
+        //Инициализация фрагментов
+        fragmentAccounting = new AccountingSales();
+        fragmentBasket = new Basket();
+        fragmentBuyer = new Buyer();
+        fragmentCompany = new Company();
+        fragmentDelivery = new Delivery();
+        fragmentProduct = new Product();
+        fragmentProvider = new ProviderMan();
+        fragmentSeller = new Seller();
+        fragmentSend = new SendOrder();
+
+
+        setTitle(R.string.main_title);
+        drawer.openDrawer(GravityCompat.START);
+
+
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -65,10 +106,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -79,22 +117,35 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_camara) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        if (id == R.id.nav_product) {
+            replaceFragment(fragmentProduct);
+        } else if (id == R.id.nav_basket) {
+            replaceFragment(fragmentBasket);
+        } else if (id == R.id.nav_accounting_sale) {
+            replaceFragment(fragmentAccounting);
+        } else if (id == R.id.nav_seller) {
+            replaceFragment(fragmentSeller);
+        } else if (id == R.id.nav_delivery) {
+            replaceFragment(fragmentDelivery);
+        } else if (id == R.id.nav_provider) {
+            replaceFragment(fragmentProvider);
+        } else if (id == R.id.nav_buyer){
+            replaceFragment(fragmentBuyer);
+        } else if (id == R.id.nav_company){
+            replaceFragment(fragmentCompany);
+        } else if (id == R.id.nav_send_order){
+            replaceFragment(fragmentSend);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentCotainer, fragment).addToBackStack(null);
+        transaction.commit();
+
     }
 }
