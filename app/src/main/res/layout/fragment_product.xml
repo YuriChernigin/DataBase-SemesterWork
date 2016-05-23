@@ -6,30 +6,30 @@
     tools:context="com.example.bdsemester.fragments.Product">
 
     <!-- TODO: Update blank fragment layout -->
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1"
         android:orientation="vertical"
-        >
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Товар"
-        android:gravity="center"
-        android:textSize="40dp"/>
+        android:weightSum="1">
 
-    <Button
-        android:layout_weight="1"
-        android:id="@+id/btnAddAccounting"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:text="Добавить запись"
-        android:textColor="@android:color/white"
-        android:textSize="30dp"
-        android:background="@color/colorPrimary"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerViewProduct" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btnAddProduct"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:text="Добавить запись"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            android:background="@color/colorPrimary"/>
     </LinearLayout>
 
 </FrameLayout>
