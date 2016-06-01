@@ -31,54 +31,54 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public static final String PRODUCT_NAME = "product_name";      // Стоблбец с названием товара
 
     // Продавец
-    private static final String TABLE_SELLER = "seller";            // Имя таблицы
-    private static final String SELLER_ID = "seller_id";            // ID продавца
-    private static final String SELLER_FIO = "seller_fio";          // Фио продавца
+    public static final String TABLE_SELLER = "seller";            // Имя таблицы
+    public static final String SELLER_ID = "seller_id";            // ID продавца
+    public static final String SELLER_FIO = "seller_fio";          // Фио продавца
 
     // Покупатель
-    private static final String TABLE_BUYER = "buyer";              // Имя таблицы
-    private static final String BUYER_ID = "buyer_id";              // ID Покупателя
-    private static final String BUYER_FIO = "buyer_fio";            // ФИО покупателя
-    private static final String BUYER_CONST_CLIENT = "const_client";// Постоянный клиент? - Логический атрибут
-    private static final String DISCOUNT = "discount";              // Скидка
+    public static final String TABLE_BUYER = "buyer";              // Имя таблицы
+    public static final String BUYER_ID = "buyer_id";              // ID Покупателя
+    public static final String BUYER_FIO = "buyer_fio";            // ФИО покупателя
+    public static final String BUYER_CONST_CLIENT = "const_client";// Постоянный клиент? - Логический атрибут
+    public static final String DISCOUNT = "discount";              // Скидка
 
     // Поставщик
-    private static final String TABLE_PROVIDER = "provider";       // Имя таблицы
-    private static final String PROVIDER_ID = "provider_id";       // ID поставщика
-    private static final String PROVIDER_FIO = "provider_fio";     // ФИО поставщика
+    public static final String TABLE_PROVIDER = "provider";       // Имя таблицы
+    public static final String PROVIDER_ID = "provider_id";       // ID поставщика
+    public static final String PROVIDER_FIO = "provider_fio";     // ФИО поставщика
 
     // Поставка. Из жругих таблиц включает ID товара и ID поставщика
-    private static final String TABLE_DELIVERY = "delivery";       // Имя таблицы
-    private static final String DELIVERY_ID = "delivery_id";       // ID поставки
-    private static final String DELIVERY_DATE = "delivery_date";   // Дата поставки
-    private static final String DELIVERY_COUNT_PRODUCT = "delivery_count_product";  // Кол-во товара в поставке
+    public static final String TABLE_DELIVERY = "delivery";       // Имя таблицы
+    public static final String DELIVERY_ID = "delivery_id";       // ID поставки
+    public static final String DELIVERY_DATE = "delivery_date";   // Дата поставки
+    public static final String DELIVERY_COUNT_PRODUCT = "delivery_count_product";  // Кол-во товара в поставке
 
     // Корзина Из других таблиц включаети в себя: ID покупателя и ID товара
-    private static final String TABLE_BASKET = "basket";           // Имя таблицы
-    private static final String BASKET_ID = "basket_id";           // ID корзины
-    private static final String COUNT_PRODUCT = "count_product";   // Кол-во товара
+    public static final String TABLE_BASKET = "basket";           // Имя таблицы
+    public static final String BASKET_ID = "basket_id";           // ID корзины
+    public static final String COUNT_PRODUCT = "count_product";   // Кол-во товара
 
     // Учет продаж. Из других таблиц: ID товара, ID продавца
-    private static final String TABLE_ACCOUNTING_SALES = "accounting_sales";  // Имя таблицы
-    private static final String ACCOUNTING_SALES_ID = "accounting_sales_id";  // ID записи
-    private static final String SALES_COUNT = "count_sale";                   // Число проданного товара
-    private static final String SALES_SUM = "sum_sale";                       // Сумма
-    private static final String SALES_DATE = "sales_date";                    // Дата
+    public static final String TABLE_ACCOUNTING_SALES = "accounting_sales";  // Имя таблицы
+    public static final String ACCOUNTING_SALES_ID = "accounting_sales_id";  // ID записи
+    public static final String SALES_COUNT = "count_sale";                   // Число проданного товара
+    public static final String SALES_SUM = "sum_sale";                       // Сумма
+    public static final String SALES_DATE = "sales_date";                    // Дата
 
 
     // Информация о компании. Из других таблиц: ID поставщика, ID продавца
-    private static final String TABLE_COMPANY = "company";                    // Имя таблицы
-    private static final String COMPANY_ID = "company_id";                    // ID компании
-    private static final String COMPANY_ADDRESS = "company_address";           // Адрес компании
+    public static final String TABLE_COMPANY = "company";                    // Имя таблицы
+    public static final String COMPANY_ID = "company_id";                    // ID компании
+    public static final String COMPANY_ADDRESS = "company_address";           // Адрес компании
 
     // Таблица сформированного заказа готового к отправлению
-    private static final String TABLE_SEND = "send";                          // Имя таблицы
-    private static final String SEND_ID = "send_id";                          // ID заказа
-    private static final String SEND_ADDRESS = "send_address";                // Адрес доставки
-    private static final String SEND_INDEX = "send_index";                    // Почтовый индекс
-    private static final String SEND_DELIVERED = "send_delivered";            // Заказ отправлен - логичский атрибут
-    private static final String SEND_GET = "send_get";                        // Заказ  получен - логический атрибут
-    private static final String SEND_FREE = "send_free";                      // Бесплатная доставка  - логический атрибут
+    public static final String TABLE_SEND = "send";                          // Имя таблицы
+    public static final String SEND_ID = "send_id";                          // ID заказа
+    public static final String SEND_ADDRESS = "send_address";                // Адрес доставки
+    public static final String SEND_INDEX = "send_index";                    // Почтовый индекс
+    public static final String SEND_DELIVERED = "send_delivered";            // Заказ отправлен - логичский атрибут
+    public static final String SEND_GET = "send_get";                        // Заказ  получен - логический атрибут
+    public static final String SEND_FREE = "send_free";                      // Бесплатная доставка  - логический атрибут
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////

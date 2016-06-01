@@ -1,14 +1,18 @@
 package com.example.bdsemester.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bdsemester.R;
+import com.example.bdsemester.activitys.AccountingActivity;
+import com.example.bdsemester.activitys.ProductActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +22,7 @@ import com.example.bdsemester.R;
  * Use the {@link AccountingSales#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccountingSales extends Fragment {
+public class AccountingSales extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,6 +33,9 @@ public class AccountingSales extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    // Переменная
+    private FloatingActionButton fabAddAccounting;
 
     /**
      * Use this factory method to create a new instance of
@@ -68,6 +75,13 @@ public class AccountingSales extends Fragment {
         View view = inflater.inflate(R.layout.fragment_accounting_sales, container, false);
         getActivity().setTitle(getString(R.string.accounting_sales));
 
+        /*-----------------------------Инициализация--------------------------------*/
+        fabAddAccounting = (FloatingActionButton) view.findViewById(R.id.fabAddAccounting);
+
+
+        // Устанавливаем слушатели
+        fabAddAccounting.setOnClickListener(this);
+
         return view;
     }
 
@@ -93,6 +107,14 @@ public class AccountingSales extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId() == fabAddAccounting.getId()){
+            startActivity(new Intent(getActivity(), AccountingActivity.class));
+        }
     }
 
     /**

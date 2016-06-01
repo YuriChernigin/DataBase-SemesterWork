@@ -1,14 +1,17 @@
 package com.example.bdsemester.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bdsemester.R;
+import com.example.bdsemester.activitys.CompanyActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +21,7 @@ import com.example.bdsemester.R;
  * Use the {@link Company#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Company extends Fragment {
+public class Company extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,6 +30,10 @@ public class Company extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    /*-----------------Переменные и объекты----------------------*/
+    // Добавить запись
+    private FloatingActionButton fabAddCompany;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,6 +75,12 @@ public class Company extends Fragment {
         View view = inflater.inflate(R.layout.fragment_company, container, false);
         getActivity().setTitle(getString(R.string.company));
 
+        fabAddCompany = (FloatingActionButton) view.findViewById(R.id.fabAddCompany);
+
+
+        // Listeners
+        fabAddCompany.setOnClickListener(this);
+
         return view;
     }
 
@@ -93,6 +106,15 @@ public class Company extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if ( v.getId() == fabAddCompany.getId()){
+            startActivity(new Intent(getActivity(), CompanyActivity.class));
+        }
+
     }
 
     /**

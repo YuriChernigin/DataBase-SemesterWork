@@ -293,7 +293,7 @@ public class Product extends Fragment implements View.OnClickListener{
         public void onFragmentInteraction(Uri uri);
     }
 
-    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ProductViewHolder>
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ProductViewHolder>
     {
         public List <ProductInfo> products;
 

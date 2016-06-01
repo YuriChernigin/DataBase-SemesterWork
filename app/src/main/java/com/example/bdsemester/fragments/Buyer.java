@@ -1,52 +1,53 @@
 package com.example.bdsemester.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.bdsemester.DataBaseHelper;
 import com.example.bdsemester.R;
+import com.example.bdsemester.activitys.BuyerActivity;
+import com.example.bdsemester.my_classes.BuyerInfo;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Buyer.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Buyer#newInstance} factory method to
- * create an instance of this fragment.
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+   Фрагмент со списком Покупателей
  */
-public class Buyer extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class Buyer extends Fragment implements View.OnClickListener{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    /*--------------------Объявление переменных и объектов----------------*/
+    // Кнопка добавить, осущ. переход в активити для создания записи
+    private FloatingActionButton fabAddBuyer;
+    // Ресайклер вью
+    private RecyclerView recyclerView;
+    // Адаптер для ресайклера
+    private RecyclerViewAdapter rvAdapter;
+    // Лист с объектами класса BuyerInfo
+    private List <BuyerInfo> listBuyers;
+    // Id
+    private int ID;
+    // ФИО
+    private String FIO;
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Buyer.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Buyer newInstance(String param1, String param2) {
-        Buyer fragment = new Buyer();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public Buyer() {
         // Required empty public constructor
@@ -55,10 +56,7 @@ public class Buyer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -67,6 +65,35 @@ public class Buyer extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_buyer, container, false);
         getActivity().setTitle(getString(R.string.buyer));
+
+        /*-------------------------------Инициализация-----------------------------*/
+        fabAddBuyer = (FloatingActionButton) view.findViewById(R.id.fabAddBuyer);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewBuyer);
+        listBuyers = new ArrayList<BuyerInfo>();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        listBuyers.clear();
+        listBuyers = getDataDB();
+        rvAdapter = new RecyclerViewAdapter(listBuyers);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener( new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position){
+                TextView txtViewID = (TextView) view.findViewById(R.id.textViewBuyerId);
+                int idItemSelect = Integer.parseInt(txtViewID.getText().toString());
+
+                Intent intent = new Intent(getActivity(), BuyerActivity.class);
+                intent.putExtra("CREATE", false);
+                intent.putExtra("ID", idItemSelect);
+                startActivity(intent);
+            }
+        }));
+
+        // Listeners
+        fabAddBuyer.setOnClickListener(this);
 
         return view;
     }
@@ -94,6 +121,147 @@ public class Buyer extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == fabAddBuyer.getId()){
+            Intent intent = new Intent(getActivity(), BuyerActivity.class);
+            intent.putExtra("CREATE", true);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        listBuyers.clear();
+        listBuyers = getDataDB();
+
+        rvAdapter = new RecyclerViewAdapter(listBuyers);
+        recyclerView.setAdapter(rvAdapter);
+        rvAdapter.notifyDataSetChanged();
+    }
+
+    // Методы для получения записей из бд
+    public List <BuyerInfo> getDataDB(){
+
+        List <BuyerInfo> tempListBuyers = new ArrayList<>();
+
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getActivity().getApplicationContext(),
+                DataBaseHelper.DATABASE_NAME, null, 1);
+        SQLiteDatabase sqLiteDatabase = dataBaseHelper.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.query(DataBaseHelper.TABLE_BUYER, new String[] { DataBaseHelper.BUYER_ID, DataBaseHelper.BUYER_FIO},
+                null, null, null, null, null);
+
+        if ( cursor.moveToFirst() ){
+            do {
+                ID = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.BUYER_ID));
+                FIO = cursor.getString(cursor.getColumnIndex(DataBaseHelper.BUYER_FIO));
+                tempListBuyers.add(new BuyerInfo(ID, FIO));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return tempListBuyers;
+    }
+
+
+    /*-------------------Переопределяем адаптер для ресайклер-вью-----------------*/
+    private class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapter.BuyerViewHolder>{
+
+        /*---------------------Объявление переменных----------------------*/
+        private List <BuyerInfo> listBuyers;        // Лист с покупателями
+
+        // Конструктор с параметрами
+        public RecyclerViewAdapter(List <BuyerInfo> listBuyers){
+            this.listBuyers = listBuyers;
+        }
+
+        @Override
+        public int getItemCount(){
+            return listBuyers.size();
+        }
+
+        @Override
+        public BuyerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
+            View view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.card_view_buyer, viewGroup, false);
+
+            BuyerViewHolder buyerViewHolder =  new BuyerViewHolder(view);
+            return buyerViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(BuyerViewHolder buyerViewHolder, int i){
+            buyerViewHolder.buyerName.setText(listBuyers.get(i).getNameBuyer());
+            buyerViewHolder.buyerId.setText(String.valueOf(listBuyers.get(i).getIdBuyer()));
+        }
+
+        @Override
+        public void onAttachedToRecyclerView(RecyclerView recyclerView){
+            super .onAttachedToRecyclerView(recyclerView);
+        }
+
+
+
+        public class BuyerViewHolder extends RecyclerView.ViewHolder{
+            private CardView cardViewBuyer;
+            private TextView buyerId;
+            private TextView buyerName;
+
+            BuyerViewHolder(View cardView){
+                super (cardView);
+                cardViewBuyer = (CardView) cardView.findViewById(R.id.cardViewBuyer);
+                buyerId = (TextView) cardView.findViewById(R.id.textViewBuyerId);
+                buyerName = (TextView) cardView.findViewById(R.id.textViewBuyerName);
+            }
+        }
+    }
+
+
+    /*------------------Слушатель для ресайклер вью-------------------------*/
+    //Класс слушателя для RecyclerView
+    public static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
+        private OnItemClickListener recyclerListener;
+
+        public interface OnItemClickListener {
+            public void onItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public RecyclerItemClickListener(Context context, OnItemClickListener listener){
+            recyclerListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+            });
+
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && recyclerListener != null && mGestureDetector.onTouchEvent(e)) {
+                recyclerListener.onItemClick(childView, view.getChildPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {  }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

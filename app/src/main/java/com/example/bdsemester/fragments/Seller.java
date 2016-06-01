@@ -1,14 +1,17 @@
 package com.example.bdsemester.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bdsemester.R;
+import com.example.bdsemester.activitys.SellerActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +21,7 @@ import com.example.bdsemester.R;
  * Use the {@link Seller#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Seller extends Fragment {
+public class Seller extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,6 +30,11 @@ public class Seller extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    /*------------------------------Объекты и переменные---------------------------------*/
+    // Добавить запись, по нажатию осущетвляется переход на активити создания записи
+    private FloatingActionButton fabAddSeller;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,6 +76,11 @@ public class Seller extends Fragment {
         View view = inflater.inflate(R.layout.fragment_seller, container, false);
         getActivity().setTitle(getString(R.string.seller));
 
+        /*------------------------------Инициализация-----------------------------*/
+        fabAddSeller = (FloatingActionButton) view.findViewById(R.id.fabAddSeller);
+
+        fabAddSeller.setOnClickListener(this);
+
         return view;
     }
 
@@ -93,6 +106,15 @@ public class Seller extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if ( v.getId() == fabAddSeller.getId()){
+            startActivity(new Intent(getActivity(), SellerActivity.class));
+        }
+
     }
 
     /**

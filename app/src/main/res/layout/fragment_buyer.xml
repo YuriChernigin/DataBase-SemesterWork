@@ -1,6 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.example.bdsemester.fragments.Buyer">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bdsemester.fragments.Buyer"
+    android:background="@android:color/white">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -11,18 +14,12 @@
         android:orientation="vertical"
         >
 
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Покупатель"
-            android:gravity="center"
-            android:textSize="40dp"/>
-        <!--<android.support.v7.widget.RecyclerView
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewBuyer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />-->
+            />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

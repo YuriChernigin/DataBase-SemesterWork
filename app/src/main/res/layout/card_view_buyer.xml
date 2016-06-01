@@ -65,7 +65,7 @@
                         android:text="ФИО"
                         android:textStyle="italic"
                         android:textSize="20dp"
-                        android:id="@+id/textViewNameBuyer"
+                        android:id="@+id/textViewBuyerName"
                         />
 
                 </LinearLayout>
