@@ -20,16 +20,21 @@
         android:gravity="center"
         android:textSize="40dp"/>
 
-    <Button
+        <!--
+    <android.support.v7.widget.RecyclerView
         android:layout_weight="1"
-        android:id="@+id/btnAddAccounting"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:text="Добавить запись"
-        android:textColor="@android:color/white"
-        android:textSize="30dp"
-        android:background="@color/colorPrimary"/>
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerViewSend"/>
+    -->
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_menu_add"
+        android:id="@+id/fabAddSend"/>
 
 </FrameLayout>

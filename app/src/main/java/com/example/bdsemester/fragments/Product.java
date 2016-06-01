@@ -3,16 +3,21 @@ package com.example.bdsemester.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.bdsemester.DataBaseHelper;
 import com.example.bdsemester.R;
+import com.example.bdsemester.activitys.ProductActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +53,7 @@ public class Product extends Fragment implements View.OnClickListener{
     private OnFragmentInteractionListener mListener;
 
     // Добавить запись
-    private Button addRecord;
+    private FloatingActionButton fabAddRecord;
     // Ресайклер
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -105,7 +111,7 @@ public class Product extends Fragment implements View.OnClickListener{
         getActivity().setTitle(getString(R.string.product));
 
         // Инициализация
-        addRecord = (Button) view.findViewById(R.id.btnAddProduct);
+        fabAddRecord = (FloatingActionButton) view.findViewById(R.id.fabAddProduct);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewProduct);
         dataBaseHelper = new DataBaseHelper(getActivity(), DataBaseHelper.DATABASE_NAME, null, 1);
         sqLiteDataBase = dataBaseHelper.getWritableDatabase();
@@ -138,10 +144,26 @@ public class Product extends Fragment implements View.OnClickListener{
             // Передаем в наш адаптер заполненый лист и устнавливаем его в ресайклевью
             adapter = new RecyclerViewAdapter(products);
             recyclerView.setAdapter(adapter);
+            cursor.close();
         }
 
+
+
         // Устанавливаем слушатели
-        addRecord.setOnClickListener(this);
+        recyclerView.addOnItemTouchListener( new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position) {
+                TextView textViewID = (TextView)view.findViewById(R.id.productId);
+                String strId = textViewID.getText().toString();
+                Intent intent = new Intent(getActivity(), ProductActivity.class);
+                int temp = -1;
+                temp = Integer.parseInt(strId);
+                intent.putExtra("ID", Integer.parseInt(strId));
+                startActivity(intent);
+            }
+
+        }));
+        fabAddRecord.setOnClickListener(this);
 
         return view;
     }
@@ -173,7 +195,7 @@ public class Product extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == addRecord.getId())
+        if(v.getId() == fabAddRecord.getId())
         {
 
             LayoutInflater inflaterDialog = getActivity().getLayoutInflater();
@@ -193,7 +215,12 @@ public class Product extends Fragment implements View.OnClickListener{
                     int id = (int)sqLiteDataBase.insert(DataBaseHelper.TABLE_PRODUCT, null, content);
 
                     products.add(new ProductInfo(id, nameForInsertDB));
-                    adapter.notifyDataSetChanged();
+                    if(adapter == null) {
+                        adapter = new RecyclerViewAdapter(products);
+                        recyclerView.setAdapter(adapter);
+                    }
+                    else
+                        adapter.notifyDataSetChanged();
                 }
             });
 
@@ -211,6 +238,44 @@ public class Product extends Fragment implements View.OnClickListener{
             builder.create();
             builder.show();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        getActivity().setTitle(getString(R.string.product));
+        products.clear();
+
+        sqLiteDataBase = dataBaseHelper.getReadableDatabase();
+        cursor = sqLiteDataBase.query(DataBaseHelper.TABLE_PRODUCT, new String[] { DataBaseHelper.PRODUCT_ID, DataBaseHelper.PRODUCT_NAME },
+                null, null, null, null, null);
+
+        // Перемещае курсор на первый элемент и если первый элемент не null, то считываем инфу с бд
+        if(cursor.moveToFirst()) {
+
+
+            // Начиная с первого последовательно считываем все существующие данные с таблицы
+            do {
+                // Добавляем первый элемент в лист с данными о товарах
+                nameProductFromDB = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PRODUCT_NAME));
+                idFromDB = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.PRODUCT_ID));
+                product = new ProductInfo(idFromDB, nameProductFromDB);
+                products.add(product);
+
+            } while (cursor.moveToNext());
+
+            // Передаем в наш адаптер заполненый лист и устнавливаем его в ресайклевью
+            adapter = new RecyclerViewAdapter(products);
+            recyclerView.setAdapter(adapter);
+        }
+
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
+
+
+
+
     }
 
     /**
@@ -308,5 +373,44 @@ public class Product extends Fragment implements View.OnClickListener{
         }
 
     }
+
+    //Класс слушателя для RecyclerView
+    public static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
+        private OnItemClickListener recyclerListener;
+
+        public interface OnItemClickListener {
+            public void onItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public RecyclerItemClickListener(Context context, OnItemClickListener listener){
+            recyclerListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+            });
+
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && recyclerListener != null && mGestureDetector.onTouchEvent(e)) {
+                recyclerListener.onItemClick(childView, view.getChildPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {  }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
+    }
+
 
 }

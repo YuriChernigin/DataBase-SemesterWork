@@ -16,22 +16,27 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="2">
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_weight="1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID: "
+                    android:layout_gravity="center"
+                    android:text="ID"
+                    android:textStyle="bold"
                     android:textSize="20dp"/>
 
                 <TextView
                     android:id="@+id/productId"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:text="10"
+                    android:textStyle="italic"
                     android:textSize="20dp"/>
 
             </LinearLayout>
@@ -39,18 +44,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
                 android:layout_weight="1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Название товара: "
+                android:layout_gravity="center"
+                android:text="Название товара"
+                android:textStyle="bold"
                 android:textSize="20dp"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="название"
+                android:layout_gravity="center"
+                android:text="Название"
                 android:textSize="20dp"
+                android:textStyle="italic"
                 android:id="@+id/nameProduct"/>
         </LinearLayout>
 

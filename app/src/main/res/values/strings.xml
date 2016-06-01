@@ -21,4 +21,13 @@
     <string name="send">Сформированные заказы</string>
     <string name="accounting_sales">Учет продаж</string>
     <string name="main_title">Skateboard Shop</string>
+    <string name="title_activity_product">ProductActivity</string>
+    <string name="title_activity_accounting">AccountingActivity</string>
+    <string name="title_activity_basket">BasketActivity</string>
+    <string name="title_activity_buyer">BuyerActivity</string>
+    <string name="title_activity_company">CompanyActivity</string>
+    <string name="title_activity_delivery">DeliveryActivity</string>
+    <string name="title_activity_send">SendActivity</string>
+    <string name="title_activity_seller">SellerActivity</string>
+    <string name="title_activity_provider">ProviderActivity</string>
 </resources>

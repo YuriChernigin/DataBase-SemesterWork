@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:layout_weight="1"
@@ -20,16 +19,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/recyclerViewProduct" />
 
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/btnAddProduct"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:text="Добавить запись"
-            android:textColor="@android:color/white"
-            android:textSize="30dp"
-            android:background="@color/colorPrimary"/>
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_add"
+        android:id="@+id/fabAddProduct"/>
 
 </FrameLayout>
